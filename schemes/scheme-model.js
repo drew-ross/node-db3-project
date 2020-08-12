@@ -37,12 +37,19 @@ function findSteps(id) {
     .catch(err => console.log(err));
 }
 
-function add() {
-
+function add(scheme) {
+  return db('schemes')
+    .insert(scheme)
+    .then(id => findById(id))
+    .catch(err => console.log(err));
 }
 
-function update() {
-
+function update(scheme, id) {
+  return db('schemes')
+  .where({ id })
+  .update(scheme)
+  .then(() => findById(id))
+  .catch(err => console.log(err));
 }
 
 function remove() {
