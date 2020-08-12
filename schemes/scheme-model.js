@@ -11,7 +11,7 @@ module.exports = {
 
 function find() {
   return db('schemes')
-    .then(schemes => schemes)
+    .then(schemes => schemes);
 }
 
 function findById(id) {
@@ -24,11 +24,17 @@ function findById(id) {
       } else {
         return null;
       }
-    });
+    })
+    .catch(err => console.log(err));
 }
 
-function findSteps() {
-
+function findSteps(id) {
+  return db('steps')
+    .join('schemes', 'steps.scheme_id', 'schemes.id')
+    .select(['steps.id', 'schemes.scheme_name', 'steps.step_number', 'steps.instructions'])
+    .where({ scheme_id: id })
+    .then(steps => steps)
+    .catch(err => console.log(err));
 }
 
 function add() {
