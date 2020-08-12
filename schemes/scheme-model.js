@@ -46,12 +46,15 @@ function add(scheme) {
 
 function update(scheme, id) {
   return db('schemes')
-  .where({ id })
-  .update(scheme)
-  .then(() => findById(id))
-  .catch(err => console.log(err));
+    .where({ id })
+    .update(scheme)
+    .then(() => findById(id))
+    .catch(err => console.log(err));
 }
 
-function remove() {
-
+function remove(id) {
+  return db('schemes')
+    .where({ id })
+    .del()
+    .catch(err => console.log(err));
 }
